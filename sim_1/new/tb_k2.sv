@@ -44,7 +44,7 @@ reset_n = 1'b0;
 #5
 reset_n = 1'b1;
 
-#400
+#1000
 $finish;
 end
 endmodule

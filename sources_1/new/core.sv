@@ -12,7 +12,7 @@ logic [3:0] pc;
 
 // jump logic 
 logic pc_load;
-assign  pc_load = J | (C & carry);
+assign  pc_load = J | (C & carryout);
 
 counter_n_bit pc_inst(
     .clk(clk),
@@ -97,7 +97,7 @@ register reg_O(
 );
 
 // ALU
-logic carry;
+logic carry, carryout;
 
 alu alu_inst(
     .opcode(imm[2]),
@@ -105,6 +105,14 @@ alu alu_inst(
     .b(regB),
     .out(AluOut),
     .carry(carry)
+);
+
+register #(.n(1)) carry1(
+    .clk(clk),
+    .resetn(resetn),
+    .wen(C),
+    .D(carry),
+    .Q(carryout)
 );
 
 
